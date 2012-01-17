@@ -10,8 +10,6 @@ class para : public QDialog
  public:
      para(QWidget * parent = 0, Qt::WindowFlags f = 0);
      ~para();
- public slots:
-     void scaleFac(double newScaleFac);
  signals:
      void intervalCount(int);
      void xMinPosition(int);

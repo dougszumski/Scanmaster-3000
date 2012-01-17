@@ -185,7 +185,6 @@ void DataPlot::logChannel(bool input)
 
 }
 
-
 void DataPlot::inputfile(QString filename){localfile = filename;}
 
 void DataPlot::setHSRes(double newHSRes){i_hs_res = newHSRes;}

@@ -49,60 +49,67 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     //Set current scaling  TODO -- convert this whole thing to a double so no need for faffing with the slot
     QHBoxLayout* hLayoutCurrentScale = new QHBoxLayout;
     QDoubleSpinBox* currentScale = new QDoubleSpinBox();
-    currentScale->setMaximum(1e12);
+    currentScale->setMaximum(1000000000);
     currentScale->setValue(SCALE);
     QLabel* currentScaleLabel = new QLabel(tr("Current scale factor:"));
     hLayoutCurrentScale->addWidget(currentScaleLabel);
     hLayoutCurrentScale->addWidget(currentScale);
-    connect(currentScale, SIGNAL(valueChanged(double)), this, SLOT(scaleFac(double)));
+    connect(currentScale, SIGNAL(valueChanged(double)), this, SIGNAL(scaleFactor(double)));
 
+    //TODO: Get rid of the above slot and hook up the signals!
     QHBoxLayout* hLayoutHSRes = new QHBoxLayout;
     QDoubleSpinBox* HSRes = new QDoubleSpinBox();
     HSRes->setValue(HS_RES);
-    currentScale->setMaximum(1e12);
+    HSRes->setMaximum(1000000000);
     QLabel* HSResLabel = new QLabel(tr("HS Resistance:"));
     hLayoutHSRes->addWidget(HSResLabel);
     hLayoutHSRes->addWidget(HSRes);
+    connect(HSRes, SIGNAL(valueChanged(double)), this, SIGNAL(HSRes(double)));
 
     QHBoxLayout* hLayoutLSRes = new QHBoxLayout;
     QDoubleSpinBox* LSRes = new QDoubleSpinBox();
     LSRes->setValue(LS_RES);
-    currentScale->setMaximum(1e12);
+    LSRes->setMaximum(1000000);
     QLabel* LSResLabel = new QLabel(tr("LS Resistance:"));
     hLayoutLSRes->addWidget(LSResLabel);
     hLayoutLSRes->addWidget(LSRes);
+    connect(LSRes, SIGNAL(valueChanged(double)), this, SIGNAL(LSRes(double)));
 
     QHBoxLayout* hLayoutTVS = new QHBoxLayout;
     QDoubleSpinBox* TVS = new QDoubleSpinBox();
     TVS->setValue(TVS_SWITCH);
-    currentScale->setMaximum(1e12);
+    TVS->setMaximum(1e12);
     QLabel* TVSLabel = new QLabel(tr("TVS threshold (V):"));
     hLayoutTVS->addWidget(TVSLabel);
     hLayoutTVS->addWidget(TVS);
+    connect(TVS, SIGNAL(valueChanged(double)), this, SIGNAL(TVSLevel(double)));
 
     QHBoxLayout* hLayoutTH1 = new QHBoxLayout;
     QDoubleSpinBox* TH1 = new QDoubleSpinBox();
     TH1->setValue(TH_1);
-    currentScale->setMaximum(10.0);
+    TH1->setMaximum(10.0);
     QLabel* TH1Label = new QLabel(tr("Threshold 1 (V):"));
     hLayoutTH1->addWidget(TH1Label);
     hLayoutTH1->addWidget(TH1);
+    connect(TH1, SIGNAL(valueChanged(double)), this, SIGNAL(Th1(double)));
 
     QHBoxLayout* hLayoutTH2 = new QHBoxLayout;
     QDoubleSpinBox* TH2 = new QDoubleSpinBox();
     TH2->setValue(TH_2);
-    currentScale->setMaximum(10.0);
+    TH2->setMaximum(10.0);
     QLabel* TH2Label = new QLabel(tr("Threshold 2 (V):"));
     hLayoutTH2->addWidget(TH2Label);
     hLayoutTH2->addWidget(TH2);
+    connect(TH2, SIGNAL(valueChanged(double)), this, SIGNAL(Th2(double)));
 
     QHBoxLayout* hLayoutTH3 = new QHBoxLayout;
     QDoubleSpinBox* TH3 = new QDoubleSpinBox();
     TH3->setValue(TH_3);
-    currentScale->setMaximum(10.0);
+    TH3->setMaximum(10.0);
     QLabel* TH3Label = new QLabel(tr("Threshold 3 (V):"));
     hLayoutTH3->addWidget(TH3Label);
     hLayoutTH3->addWidget(TH3);
+    connect(TH3, SIGNAL(valueChanged(double)), this, SIGNAL(Th3(double)));
 
     mainGrid->addLayout(hLayoutHistBins,0,0);
     mainGrid->addLayout(hLayoutHistStart,1,0);
@@ -117,12 +124,6 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
 
     setLayout(mainGrid);
 
-
 }
 
 para::~para(){}
-
-void para::scaleFac(double newScaleFac){
-    emit(scaleFactor(newScaleFac));
-}
-

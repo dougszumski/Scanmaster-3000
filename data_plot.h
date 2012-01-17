@@ -7,9 +7,9 @@
 #include <QVector>
 
 //Defaults
-#define SCALE 1e9
-#define HS_RES 10e6
-#define LS_RES 10e3
+#define SCALE 1000000000
+#define HS_RES 10000000
+#define LS_RES 10000
 #define TVS_SWITCH 6.0
 #define TH_1 0.09
 #define TH_2 0.05
@@ -32,7 +32,6 @@ public slots:
     void inputfile(QString filename);
     void initDAQ();
     void quitDAQ();
-
     //Quad channel parameters
     void setScale(double);
     void setHSRes(double);
