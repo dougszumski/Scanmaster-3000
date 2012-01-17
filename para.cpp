@@ -13,9 +13,11 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     QVBoxLayout* topLayout = new QVBoxLayout;
     mainGrid->addLayout(topLayout,0,0);
 
+    //Histogram bins
     QHBoxLayout* hLayoutHistBins = new QHBoxLayout;
     QSpinBox* histBins = new QSpinBox();
     histBins->setMaximum(1000);
+    histBins->setValue(DEF_INTERVALS);
     QLabel* histBinsLabel = new QLabel(tr("Number of bins:"));
     hLayoutHistBins->addWidget(histBinsLabel);
     hLayoutHistBins->addWidget(histBins);
@@ -26,8 +28,7 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     histStart->setMinimum(-10);
     //TODO: Link this to less than histstop
     histStart->setMaximum(10);
-    //TODO LINK this to defaults
-    histStart->setValue(-10);
+    histStart->setValue(DEF_XMIN);
     QLabel* histStartLabel = new QLabel(tr("Start position:"));
     hLayoutHistStart->addWidget(histStartLabel);
     hLayoutHistStart->addWidget(histStart);
@@ -35,6 +36,8 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
 
     QHBoxLayout* hLayoutHistStop = new QHBoxLayout;
     QSpinBox* histStop = new QSpinBox();
+    histStop->setValue(DEF_XMAX);
+    histStop->setMaximum(10);
     QLabel* histStopLabel = new QLabel(tr("Stop position:"));
     hLayoutHistStop->addWidget(histStopLabel);
     hLayoutHistStop->addWidget(histStop);
@@ -45,6 +48,8 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     mainGrid->addLayout(hLayoutHistStop,2,0);
 
     setLayout(mainGrid);
+
+
 }
 
 para::~para(){}

@@ -1,8 +1,7 @@
 #ifndef PARA_H
 #define PARA_H
 #include <QDialog>
-
-#include <QObject>
+#include "hist_plot.h"
 
 class para : public QDialog
 {
@@ -19,6 +18,7 @@ class para : public QDialog
      void intervalCount(int);
      void xMinPosition(int);
      void xMaxPosition(int);
+
 };
 
 #endif // PARA_H

@@ -6,7 +6,16 @@
 #include <stdlib.h>
 #include <QVector>
 
-const int PLOT_SIZE = 1000;      // 0 to 200
+//DEFAULTS
+#define SCALE 1e9
+#define HS_RES 10e6
+#define LS_RES 10e3
+#define TVS_SWITCH 6.0
+#define TH_1 0.09
+#define TH_2 0.05
+#define TH_3 0.09
+
+const int PLOT_SIZE = 1000;
 
 class DataPlot : public QwtPlot
 {
@@ -15,18 +24,31 @@ class DataPlot : public QwtPlot
 public:
     DataPlot(QWidget* = NULL);
 
+    //Quad channel amp. parameters: set externally
+    float i_hs_res;
+    float i_ls_res;
+    float scale;
+    float th_1, th_2, th_3;
+    float tvs_switchover;
+
 public slots:
     void setTimerInterval(double interval);
     void logChannel(bool log_ai0);
-    void setTrigger(double trigger);
-    void setSlope(bool rising_slope);
     void inputfile(QString filename);
     void initDAQ();
     void quitDAQ();
-    void generator(double array[], int len);
-
+#if 0
+    //Quad channel parameters
+    void setScale(float);
+    void setHSRes(float);
+    void setLSRes(float);
+    void setTVSLevel(float);
+    void setTh1(float);
+    void setTh2(float);
+    void setTh3(float);
+#endif
 signals:
-    void dataSample(QwtArray<double> data_sample);  //NOTE -- this seemed faster a QVector???
+    void dataSample(QwtArray<double> data_sample);
     void dataRandom(double value);
 
 protected:
@@ -41,11 +63,6 @@ private:
     double ai_2[PLOT_SIZE];
     double ai_3[PLOT_SIZE];
     double ai_combined[PLOT_SIZE];
-
-    //Resistor values
-    double i_hs_res;
-    double i_ls_res;
-    double scale;
 
     //Sample for histogram
     QwtArray<double> data_sample;

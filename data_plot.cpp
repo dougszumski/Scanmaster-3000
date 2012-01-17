@@ -24,6 +24,14 @@ DataPlot::DataPlot(QWidget *parent):
         d_interval(0),
         d_timerId(-1)
 {
+    //Set defaults
+    scale = SCALE;
+    i_hs_res = HS_RES;
+    i_ls_res = LS_RES;
+    tvs_switchover = TVS_SWITCH;
+    th_1 = TH_1;
+    th_2 = TH_2;
+    th_3 = TH_3;
 
     // Disable polygon clipping
     QwtPainter::setDeviceClipping(false);
@@ -99,7 +107,7 @@ void DataPlot::initDAQ()
     timeout = 10.0;
     samplesPerChan = 1000;
     sampleRate = 10000;
-//#if 0
+#if 0
     //Setup the task - takes bloody ages
     DAQmxBaseCreateTask("",&taskHandle);
     //Enable all 4 channels
@@ -107,7 +115,7 @@ void DataPlot::initDAQ()
     DAQmxBaseCfgSampClkTiming(taskHandle,"OnboardClock",sampleRate,DAQmx_Val_Rising,DAQmx_Val_ContSamps,samplesPerChan);
     DAQmxBaseCfgInputBuffer(taskHandle,40000); //DMA buffer size, overides 'auto' which doesn't work
     DAQmxBaseStartTask(taskHandle);
-//#endif
+#endif
     //Data sample which gets sent to the hisogram
     data_sample.resize(samplesPerChan);
     read_data = true;
@@ -177,66 +185,31 @@ void DataPlot::logChannel(bool input)
 
 }
 
-void DataPlot::setSlope(bool rising_slope)
-{
-    slope = rising_slope;
-
-}
-
-void DataPlot::setTrigger(double trigger)
-//For now just trigger off channel ai0 with no averaging
-{
-    trigger_point = trigger;
-}
 
 void DataPlot::inputfile(QString filename)
 {
     localfile = filename;
 }
 
-void DataPlot::generator(double array[], int len)
-{
-    for ( int i = 0; i < len; i++ )
-        {
-           const double value = (rand()%100000)/10000.0;
-           array[i] += value;
-           emit dataRandom(value);
-           qDebug("value = %f", value);
-         }
-
-
-}
-
 void DataPlot::timerEvent(QTimerEvent *)
-        //  Read ADC, update the graph and save the data
+//  Read ADC, update the graph and save the data
 {
     //Function protype: int32 DAQmxBaseReadAnalogF64 (TaskHandle taskHandle, int32 numSampsPerChan, float64 timeout,
     //bool32 fillMode, float64 readArray[ ], //uInt32 arraySizeInSamps, int32 *sampsPerChanRead, bool32 *reserved);
     if (read_data == true) {
 
         //Read the data
-        DAQmxBaseReadAnalogF64(taskHandle,pointsToRead,timeout,DAQmx_Val_GroupByScanNumber,data,bufferSize,&pointsRead,NULL);
+        //DAQmxBaseReadAnalogF64(taskHandle,pointsToRead,timeout,DAQmx_Val_GroupByScanNumber,data,bufferSize,&pointsRead,NULL);
 
             //Update the graph
             for (int i = (int)samplesPerChan-1; i >= 0 && i < (int)samplesPerChan; i--){
                 ai_0[i] = data[(4*i)];
-                //ai_0[i] = ( (rand()%100000)/10000.0 -5.0);
-                data_sample[i] = ai_0[i];
+                ai_0[i] = ( (rand()%100000)/10000.0 -5.0);
                 ai_1[i] = data[(4*i+1)];
                 ai_2[i] = data[(4*i+2)];
                 ai_3[i] = data[(4*i+3)];
             }
             replot();
-
-            //TODO: Move to GUI
-            float th_1, th_2, th_3, tvs_switchover;
-            i_hs_res = 10e6;
-            i_ls_res = 10e3;
-            scale = 1e9;
-            tvs_switchover = 6.0;
-            th_1 = 1.0;
-            th_2 = 0.08;
-            th_3 = 1.0;
 
             //Begin by setting the combined channel to the the lowest resolution
             memcpy(ai_combined, ai_0, sizeof(ai_0));
@@ -264,8 +237,7 @@ void DataPlot::timerEvent(QTimerEvent *)
 
             //Copy data from array to QwtArray - is there someway of casting it or using memcpy?
             for (uint i = 0; i < samplesPerChan; i++){
-                data_sample[i] = log10(ai_combined[i]);
-                //ai_combined[i] = log10(ai_combined[i]);
+                data_sample[i] = log10(fabs(ai_combined[i]));
 
             }
             

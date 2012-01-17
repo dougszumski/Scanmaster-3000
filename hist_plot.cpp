@@ -15,10 +15,9 @@ HistPlot::HistPlot(QWidget *parent):
 {
    
     //Set defaults
-    numIntervals = 10;
-    start=-3.0;
-    finish=10.0;
-    setIntervals(numIntervals);
+    start=DEF_XMIN;
+    finish=DEF_XMAX;
+    setIntervals(DEF_INTERVALS);
 
     //Setup the plot
     setCanvasBackground(QColor(Qt::black));

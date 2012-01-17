@@ -13,6 +13,17 @@ MainWindow::MainWindow()
 
     //Plot graph
     DataPlot *dataplot = new DataPlot(this);
+
+#if 0
+    dataplot->scale = 1e9;
+    dataplot->i_hs_res = 10e6;
+    dataplot->i_ls_res = 10e3;
+    dataplot->tvs_switchover = 6.0;
+    dataplot->th_1 = 0.09;
+    dataplot->th_2 = 0.05;
+    dataplot->th_3 = 0.09;
+#endif
+
     //Plot histogram
     HistPlot *histplot = new HistPlot(this);
     statusBar()->showMessage("QSimulate has started");
@@ -81,7 +92,7 @@ MainWindow::MainWindow()
     connect(dataplot, SIGNAL(dataSample(QwtArray<double>)), histplot, SLOT(updatePlot(QwtArray<double>)));
 
     //Create an instance of the parameters menu
-    setHistPara = new para;
+    setHistPara = new para(this);
     //setHistPara->show(); //for testing
 
     //Connect the parameters to the histogram plotter
@@ -93,24 +104,9 @@ MainWindow::MainWindow()
     connect(setHistPara, SIGNAL(intervalCount(int)), histplot, SLOT(clearPlot()));
     connect(setHistPara, SIGNAL(xMinPosition(int)), histplot, SLOT(clearPlot()));
     connect(setHistPara, SIGNAL(xMaxPosition(int)), histplot, SLOT(clearPlot()));
-
     //Connect the save file dialog to datplot
-    //TODO add error catch for undefined file in dataplot
     connect(this, SIGNAL(newFilename(QString)), dataplot, SLOT(inputfile(QString)));
 
-        //TODO:
-        // * Really dataplot should only plot data -- refactor to do this, and have seperate NiDAQ class
-        //   fired by QTimer?
-        // * Code to splice the three channels back together and take the log?
-        //   * At this stage would be easier to integrate chopper for 'realtime' reconstruction of scans
-        //     however important to keep totally raw data --output seperately as a gzipped file?
-        //        * This would also improve the histogram
-        //        * Could plot all data at once, so user can see real time data, and buffered scan reconstructs
-        // * Setup some buttons to allow the user to:
-        //   * Limit the y-axis scale -- perhaps set off the central region?
-        //   *
-        //   * Clear the histogram and optionally the stored data -- fast detection and removal of crap data
-        //   * Enable /Disable real time updates incase large dataset eats up too much RAM
 
 }
 

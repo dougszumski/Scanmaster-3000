@@ -7,6 +7,10 @@
 #include "histogram_item.h"
 #include <qwt_plot_grid.h>
 
+//Default settings
+#define DEF_INTERVALS 250
+#define DEF_XMIN -1
+#define DEF_XMAX 5
 
 class HistPlot : public QwtPlot
 {
@@ -25,7 +29,6 @@ private:
     QwtArray<double> histdat;
     HistogramItem *histogram;
     QwtPlotGrid *grid;
-
     int numValues;
     double binwidth;
     //x-axis range
