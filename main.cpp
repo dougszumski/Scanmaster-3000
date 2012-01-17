@@ -107,6 +107,15 @@ MainWindow::MainWindow()
     //Connect the save file dialog to datplot
     connect(this, SIGNAL(newFilename(QString)), dataplot, SLOT(inputfile(QString)));
 
+    //Connect the Quad channel parameters
+    connect(setHistPara, SIGNAL(scaleFactor(double)), dataplot, SLOT(setScale(double)));
+    connect(setHistPara, SIGNAL(HSRes(double)), dataplot, SLOT(setHSRes(double)));
+    connect(setHistPara, SIGNAL(LSRes(double)), dataplot, SLOT(setLSRes(double)));
+    connect(setHistPara, SIGNAL(TVSLevel(double)), dataplot, SLOT(setTVSLevel(double)));
+    connect(setHistPara, SIGNAL(Th1(double)), dataplot, SLOT(setTh1(double)));
+    connect(setHistPara, SIGNAL(Th2(double)), dataplot, SLOT(setTh2(double)));
+    connect(setHistPara, SIGNAL(Th3(double)), dataplot, SLOT(setTh3(double)));
+
 
 }
 

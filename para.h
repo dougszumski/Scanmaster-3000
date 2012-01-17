@@ -2,6 +2,7 @@
 #define PARA_H
 #include <QDialog>
 #include "hist_plot.h"
+#include "data_plot.h"
 
 class para : public QDialog
 {
@@ -10,14 +11,18 @@ class para : public QDialog
      para(QWidget * parent = 0, Qt::WindowFlags f = 0);
      ~para();
  public slots:
-     void numIntervals(int intervals);
-     void xMinPos(int newxMinPos);
-     void xMaxPos(int newxMaxPos);
-     void sl_cancel();
+     void scaleFac(double newScaleFac);
  signals:
      void intervalCount(int);
      void xMinPosition(int);
      void xMaxPosition(int);
+     void scaleFactor(double);
+     void HSRes(double);
+     void LSRes(double);
+     void TVSLevel(double);
+     void Th1(double);
+     void Th2(double);
+     void Th3(double);
 
 };
 

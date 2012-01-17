@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <QVector>
 
-//DEFAULTS
+//Defaults
 #define SCALE 1e9
 #define HS_RES 10e6
 #define LS_RES 10e3
@@ -14,6 +14,8 @@
 #define TH_1 0.09
 #define TH_2 0.05
 #define TH_3 0.09
+#define SAMPLES_PER_CHAN 1000
+#define SAMPLE_RATE 10000
 
 const int PLOT_SIZE = 1000;
 
@@ -24,29 +26,22 @@ class DataPlot : public QwtPlot
 public:
     DataPlot(QWidget* = NULL);
 
-    //Quad channel amp. parameters: set externally
-    float i_hs_res;
-    float i_ls_res;
-    float scale;
-    float th_1, th_2, th_3;
-    float tvs_switchover;
-
 public slots:
     void setTimerInterval(double interval);
     void logChannel(bool log_ai0);
     void inputfile(QString filename);
     void initDAQ();
     void quitDAQ();
-#if 0
+
     //Quad channel parameters
-    void setScale(float);
-    void setHSRes(float);
-    void setLSRes(float);
-    void setTVSLevel(float);
-    void setTh1(float);
-    void setTh2(float);
-    void setTh3(float);
-#endif
+    void setScale(double);
+    void setHSRes(double);
+    void setLSRes(double);
+    void setTVSLevel(double);
+    void setTh1(double);
+    void setTh2(double);
+    void setTh3(double);
+
 signals:
     void dataSample(QwtArray<double> data_sample);
     void dataRandom(double value);
@@ -73,6 +68,13 @@ private:
     bool store_data;
     bool slope;
     bool read_data;
+
+    //Quad channel amp. parameters
+    double i_hs_res;
+    double i_ls_res;
+    double scale;
+    double th_1, th_2, th_3;
+    double tvs_switchover;
 
     QString localfile;
 

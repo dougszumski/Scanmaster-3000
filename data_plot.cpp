@@ -105,8 +105,8 @@ void DataPlot::initDAQ()
     // Data read parameters
     pointsToRead = bufferSize;
     timeout = 10.0;
-    samplesPerChan = 1000;
-    sampleRate = 10000;
+    samplesPerChan = SAMPLES_PER_CHAN;
+    sampleRate = SAMPLE_RATE;
 #if 0
     //Setup the task - takes bloody ages
     DAQmxBaseCreateTask("",&taskHandle);
@@ -186,10 +186,23 @@ void DataPlot::logChannel(bool input)
 }
 
 
-void DataPlot::inputfile(QString filename)
-{
-    localfile = filename;
-}
+void DataPlot::inputfile(QString filename){localfile = filename;}
+
+void DataPlot::setHSRes(double newHSRes){i_hs_res = newHSRes;}
+
+void DataPlot::setLSRes(double newLSRes){i_ls_res = newLSRes;}
+
+void DataPlot::setTVSLevel(double newTVSLevel){tvs_switchover = newTVSLevel;}
+
+void DataPlot::setTh1(double newTh1){th_1 = newTh1;}
+
+void DataPlot::setTh2(double newTh2){th_2 = newTh2;}
+
+void DataPlot::setTh3(double newTh3){th_3 = newTh3;}
+
+void DataPlot::setScale(double newScale){
+    qDebug("Scale changed to: %f", scale);
+    scale = newScale;}
 
 void DataPlot::timerEvent(QTimerEvent *)
 //  Read ADC, update the graph and save the data
