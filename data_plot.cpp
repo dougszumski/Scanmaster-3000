@@ -107,7 +107,7 @@ void DataPlot::initDAQ()
     DAQmxBaseCfgSampClkTiming(taskHandle,"OnboardClock",sampleRate,DAQmx_Val_Rising,DAQmx_Val_ContSamps,samplesPerChan);
     DAQmxBaseCfgInputBuffer(taskHandle,40000); //DMA buffer size, overides 'auto' which doesn't work
     DAQmxBaseStartTask(taskHandle);
-    //#endif
+//#endif
     //Data sample which gets sent to the hisogram
     data_sample.resize(samplesPerChan);
     read_data = true;
@@ -229,57 +229,17 @@ void DataPlot::timerEvent(QTimerEvent *)
             replot();
 
             //TODO: Move to GUI
-            bool sat_flag_hs1;
-            bool sat_flag_hs10;
-            double fin_avg_hs1;
-            double fin_avg_hs10;
-            float th_1, th_2, th_3, bcorfac;
-            int begin, final_int;
+            float th_1, th_2, th_3, tvs_switchover;
             i_hs_res = 10e6;
             i_ls_res = 10e3;
             scale = 1e9;
+            tvs_switchover = 6.0;
             th_1 = 1.0;
             th_2 = 0.08;
             th_3 = 1.0;
-            bcorfac = 0.2;
-
-            //Now have a look at the background levels on the HS channels to see if they've saturated
-            final_int = int(samplesPerChan * bcorfac);
-            begin = int(samplesPerChan - final_int);
-            //Calculate the absolute average of the background
-
-            //qDebug("Begin position: %i", begin);
-
-            fin_avg_hs1 = 0.0;
-            fin_avg_hs10 = 0.0;
-            for (uint i = begin; i < samplesPerChan; i++){
-                fin_avg_hs1 += fabs(ai_2[i]);
-                fin_avg_hs10 += fabs(ai_3[i]);}
-            fin_avg_hs1 /= final_int;
-            fin_avg_hs10 /= final_int;
-
-            //qDebug("Final average: %d", fin_avg_hs1);
-
-            //Above replaces this:
-            //fin_avg_hs1 = abs( sum(ai_2[begin:samplesPerChan]) / final_int);
-            //fin_avg_hs10 = abs( sum(ai_3[begin:samplesPerChan]) / final_int);
-
-            //Now see if the channels have saturated
-            //TODO Add the 6.0V here as a parameter in the GUI. It is a function of the limiter circuit.
-            sat_flag_hs1 = false;
-            sat_flag_hs10 = false;
-            if (fin_avg_hs1 > 6.0){
-                qDebug() << "WARNING: Channels HSx1 and HSx10 are saturated and have been ignored";
-                sat_flag_hs1 = true;
-                //It follows that HSx10 must have also saturated
-                sat_flag_hs10 = true;}
-            else if (fin_avg_hs10 > 6.0){
-                sat_flag_hs10 = true;}
 
             //Begin by setting the combined channel to the the lowest resolution
             memcpy(ai_combined, ai_0, sizeof(ai_0));
-
-            //qDebug("Ai_combined: %f, ai_0: %f, Size of: %i)", ai_combined[2], ai_0[2], sizeof(ai_0));
 
             //Attempt to improve the resolution by stiching the channels together
             for (int i = 0; i < (int)samplesPerChan; i++)
@@ -289,19 +249,12 @@ void DataPlot::timerEvent(QTimerEvent *)
                     if (fabs(ai_1[i]) > th_2){
                         //LSx10 channel is still in operation so use the measurment from there
                         ai_combined[i] = ai_1[i] / (i_ls_res * 10) * scale;}
-                    else if ((fabs(ai_2[i]) > th_3) && !sat_flag_hs1){
-                        //Limiter is off, HSx1 channel is in operation
+                    else if ((fabs(ai_2[i]) > th_3) && (fabs(ai_2[i]) < tvs_switchover)){
+                        //Limiter is off, HSx1 channel is in operation and the TVS diode is off
                         ai_combined[i] = ai_2[i] / i_hs_res * scale; }
-                    else if (!sat_flag_hs10) {
+                    else {
                         //If HSx1 is below threshold then use the HSx10 channel regardless
                         ai_combined[i] = ai_3[i] / (i_hs_res * 10) * scale;}
-                    else if (!sat_flag_hs1) {
-                        //If the above fails because HSx10 is saturated fall back to HSx1 as that's the best we have
-                        ai_combined[i] = ai_2[i] / i_hs_res * scale;}
-                    else {
-                        //If both HSx1 and HSx10 channels are saturated then use LSx10
-                        //NOTE: In this case the measurement is probably useless for anything but a break junction
-                        ai_combined[i] = ai_1[i] / (i_ls_res * 10) * scale;}
                  }
                  else {
                     //LSx1 channel is fine so convert to current
@@ -309,32 +262,16 @@ void DataPlot::timerEvent(QTimerEvent *)
                  }
             }
 
-            //qDebug("AFTER Ai_combined: %f, ai_0: %f, Size of: %i)", ai_combined[2], ai_0[2], sizeof(ai_0));
-            
             //Copy data from array to QwtArray - is there someway of casting it or using memcpy?
-            
             for (uint i = 0; i < samplesPerChan; i++){
                 data_sample[i] = log10(ai_combined[i]);
                 //ai_combined[i] = log10(ai_combined[i]);
 
             }
             
-            //qDebug("LOG Ai_combined: %f, ai_0: %f, Size of: %i)", ai_combined[2], ai_0[2], sizeof(ai_0));
-
             //Send data to histogram
             emit dataSample(data_sample);
 
-#if 0       //NOT ACTUALLY REQUIRED AT THIS LEVEL
-            /*Now convert the individual channels to currents*/
-            for (int i = 0; i < (int)samplePerChan; i++) {
-                ai_0[i] = ai_0[i] / i_ls_res * scale;
-                ai_1[i] = ai_1[i] / (i_ls_res * 10) * scale;
-                if (!sat_flag_hs1) {
-                    ai_2[i] = ai_2[i] / i_hs_res * scale;}
-                if (!sat_flag_hs10) {
-                    ai_3[i] = ai_3[i] / (i_hs_res * 10) * scale;}
-            }
-#endif
             if (store_data == true)
             {
                 QFile outputfile(localfile);
