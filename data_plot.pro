@@ -1,4 +1,4 @@
-#  Scanmaster-3000
+#  Scanmaster-3000 STM aqusition software
 #
 #  Copyright 2011, 2012 Doug Szumski <d.s.szumski@gmail.com>
 #
