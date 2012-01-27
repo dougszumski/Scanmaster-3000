@@ -1,3 +1,26 @@
+/* Acquire and plot data from a NI DAQ
+/
+/  Based on work from the Qwt Widget Library
+/  Copyright 2011, 2012 Doug Szumski <d.s.szumski@gmail.com>
+/  Copyright 1997       Josef Wilgen
+/  Copyright 2002       Uwe Rathmann
+/
+/  This file is part of Scanmaster-3000.
+/
+/    Scanmaster-3000 is free software: you can redistribute it and/or modify
+/    it under the terms of the GNU General Public License as published by
+/    the Free Software Foundation, either version 3 of the License, or
+/    (at your option) any later version.
+/
+/    Scanmaster-3000 is distributed in the hope that it will be useful,
+/    but WITHOUT ANY WARRANTY; without even the implied warranty of
+/    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/    GNU General Public License for more details.
+/
+/    You should have received a copy of the GNU General Public License
+/    along with Scanmaster-3000.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include <stdlib.h>
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
@@ -90,9 +113,11 @@ DataPlot::DataPlot(QWidget *parent):
 
     setAxisTitle(QwtPlot::yLeft, "Voltage (V)");
     setAxisScale(QwtPlot::yLeft, -12, 12);
-
+#ifdef DEBUG
     setTimerInterval(100.0);
-
+#else
+    setTimerInterval(10.0);
+#endif
 }
 
 void DataPlot::initDAQ()
@@ -107,7 +132,7 @@ void DataPlot::initDAQ()
     timeout = 10.0;
     samplesPerChan = SAMPLES_PER_CHAN;
     sampleRate = SAMPLE_RATE;
-#if 0
+#ifndef DEBUG
     //Setup the task - takes bloody ages
     DAQmxBaseCreateTask("",&taskHandle);
     //Enable all 4 channels
@@ -211,12 +236,15 @@ void DataPlot::timerEvent(QTimerEvent *)
     if (read_data == true) {
 
         //Read the data
-        //DAQmxBaseReadAnalogF64(taskHandle,pointsToRead,timeout,DAQmx_Val_GroupByScanNumber,data,bufferSize,&pointsRead,NULL);
-
+#ifndef DEBUG
+        DAQmxBaseReadAnalogF64(taskHandle,pointsToRead,timeout,DAQmx_Val_GroupByScanNumber,data,bufferSize,&pointsRead,NULL);
+#endif
             //Update the graph
             for (int i = (int)samplesPerChan-1; i >= 0 && i < (int)samplesPerChan; i--){
                 ai_0[i] = data[(4*i)];
+#ifdef DEBUG
                 ai_0[i] = ( (rand()%100000)/10000.0 -5.0);
+#endif
                 ai_1[i] = data[(4*i+1)];
                 ai_2[i] = data[(4*i+2)];
                 ai_3[i] = data[(4*i+3)];

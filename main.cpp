@@ -1,3 +1,23 @@
+/* Scanmaster-3000
+/
+/  Copyright 2011, 2012 Doug Szumski <d.s.szumski@gmail.com>
+/
+/  This file is part of Scanmaster-3000.
+/
+/    Scanmaster-3000 is free software: you can redistribute it and/or modify
+/    it under the terms of the GNU General Public License as published by
+/    the Free Software Foundation, either version 3 of the License, or
+/    (at your option) any later version.
+/
+/    Scanmaster-3000 is distributed in the hope that it will be useful,
+/    but WITHOUT ANY WARRANTY; without even the implied warranty of
+/    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/    GNU General Public License for more details.
+/
+/    You should have received a copy of the GNU General Public License
+/    along with Scanmaster-3000.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include <QtGui>
 #include "main.h"
 #include "data_plot.h"
@@ -65,8 +85,8 @@ MainWindow::MainWindow()
     clearPlotAct->setStatusTip("Clear on-screen histogram");
     connect(clearPlotAct, SIGNAL(triggered()), histplot, SLOT(clearPlot()));
 
-    setParametersAct = new QAction(tr("&Set parameters"), this);
-    setParametersAct->setStatusTip("Set some parameters");
+    setParametersAct = new QAction(tr("&Settings"), this);
+    setParametersAct->setStatusTip("Settings for data plotting");
     connect(setParametersAct, SIGNAL(triggered()), SLOT(showpars()));
 
     plotMenu = menuBar()->addMenu("&Plotting");
@@ -137,7 +157,7 @@ void MainWindow::showpars(void)
 void MainWindow::VersionMessage(void)
 {
      QMessageBox msgBox;
-     msgBox.setText("Version: 0.50, Author: Doug Szumski {d.s.szumski@gmail.com}");
+     msgBox.setText("v0.50 by Doug Szumski {d.s.szumski@gmail.com}");
      msgBox.setWindowTitle(tr("About"));
      msgBox.exec();
 }

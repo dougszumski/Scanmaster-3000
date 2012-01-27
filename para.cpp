@@ -1,3 +1,23 @@
+/* Scanmaster-3000 parameter window
+/
+/  Copyright 2011, 2012 Doug Szumski <d.s.szumski@gmail.com>
+/
+/  This file is part of Scanmaster-3000.
+/
+/    Scanmaster-3000 is free software: you can redistribute it and/or modify
+/    it under the terms of the GNU General Public License as published by
+/    the Free Software Foundation, either version 3 of the License, or
+/    (at your option) any later version.
+/
+/    Scanmaster-3000 is distributed in the hope that it will be useful,
+/    but WITHOUT ANY WARRANTY; without even the implied warranty of
+/    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/    GNU General Public License for more details.
+/
+/    You should have received a copy of the GNU General Public License
+/    along with Scanmaster-3000.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "para.h"
 #include <QHBoxLayout>
 #include <QPushButton>
@@ -7,12 +27,17 @@
 #include <QDoubleSpinBox>
 #include <QLabel>
 #include <QDebug>
+#include <QChar>
 
 para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
 {
     QGridLayout* mainGrid = new QGridLayout;
     QVBoxLayout* topLayout = new QVBoxLayout;
     mainGrid->addLayout(topLayout,0,0);
+
+    //Define Units
+    QString ohms;
+    ohms = (' ' + QChar(0x26, 0x21));
 
     //Histogram bins
     QHBoxLayout* hLayoutHistBins = new QHBoxLayout;
@@ -51,6 +76,7 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     QDoubleSpinBox* currentScale = new QDoubleSpinBox();
     currentScale->setMaximum(1000000000);
     currentScale->setValue(SCALE);
+    currentScale->setDecimals(0);
     QLabel* currentScaleLabel = new QLabel(tr("Current scale factor:"));
     hLayoutCurrentScale->addWidget(currentScaleLabel);
     hLayoutCurrentScale->addWidget(currentScale);
@@ -59,8 +85,10 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     //TODO: Get rid of the above slot and hook up the signals!
     QHBoxLayout* hLayoutHSRes = new QHBoxLayout;
     QDoubleSpinBox* HSRes = new QDoubleSpinBox();
-    HSRes->setValue(HS_RES);
     HSRes->setMaximum(1000000000);
+    HSRes->setValue(HS_RES);
+    HSRes->setDecimals(0);
+    HSRes->setSuffix(ohms);
     QLabel* HSResLabel = new QLabel(tr("HS Resistance:"));
     hLayoutHSRes->addWidget(HSResLabel);
     hLayoutHSRes->addWidget(HSRes);
@@ -68,8 +96,10 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
 
     QHBoxLayout* hLayoutLSRes = new QHBoxLayout;
     QDoubleSpinBox* LSRes = new QDoubleSpinBox();
-    LSRes->setValue(LS_RES);
     LSRes->setMaximum(1000000);
+    LSRes->setValue(LS_RES);
+    LSRes->setDecimals(0);
+    LSRes->setSuffix(ohms);
     QLabel* LSResLabel = new QLabel(tr("LS Resistance:"));
     hLayoutLSRes->addWidget(LSResLabel);
     hLayoutLSRes->addWidget(LSRes);
@@ -78,7 +108,7 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     QHBoxLayout* hLayoutTVS = new QHBoxLayout;
     QDoubleSpinBox* TVS = new QDoubleSpinBox();
     TVS->setValue(TVS_SWITCH);
-    TVS->setMaximum(1e12);
+    TVS->setMaximum(10.0);
     QLabel* TVSLabel = new QLabel(tr("TVS threshold (V):"));
     hLayoutTVS->addWidget(TVSLabel);
     hLayoutTVS->addWidget(TVS);
@@ -123,6 +153,8 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     mainGrid->addLayout(hLayoutTH3,9,0);
 
     setLayout(mainGrid);
+
+    setWindowTitle(tr("Settings"));
 
 }
 

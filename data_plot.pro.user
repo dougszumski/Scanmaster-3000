@@ -58,14 +58,14 @@
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
     <value type="QString" >CVS_RSH=ssh</value>
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-GZmOPVpbcT,guid=29c884209fc8eb552a4c59004f140101</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-3ppVa1v2xP,guid=33e510bbad245880249fbf004f154ea1</value>
     <value type="QString" >DESKTOP_SESSION=default</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
     <value type="QString" >GDMSESSION=default</value>
     <value type="QString" >GDM_XSERVER_LOCATION=local</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=Default</value>
-    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-sIU5s5/socket</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-teqKLs/socket</value>
     <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/doug/.gtkrc-1.2-gnome2</value>
     <value type="QString" >G_BROKEN_FILENAMES=1</value>
     <value type="QString" >HISTSIZE=1000</value>
@@ -83,16 +83,16 @@
     <value type="QString" >QTDIR=/home/doug/qtsdk-2009.02/qt</value>
     <value type="QString" >QTINC=/usr/lib/qt-3.3/include</value>
     <value type="QString" >QTLIB=/usr/lib/qt-3.3/lib</value>
-    <value type="QString" >SESSION_MANAGER=local/scania3.nsqi.bris.ac.uk:/tmp/.ICE-unix/3376</value>
+    <value type="QString" >SESSION_MANAGER=local/scania3.nsqi.bris.ac.uk:/tmp/.ICE-unix/3391</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SHLVL=1</value>
-    <value type="QString" >SSH_AGENT_PID=3415</value>
+    <value type="QString" >SSH_AGENT_PID=3430</value>
     <value type="QString" >SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-LInIKR3376/agent.3376</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-LYZXXj3391/agent.3391</value>
     <value type="QString" >TERM=dumb</value>
     <value type="QString" >USER=doug</value>
     <value type="QString" >USERNAME=doug</value>
-    <value type="QString" >XAUTHORITY=/tmp/.gdm4L347V</value>
+    <value type="QString" >XAUTHORITY=/tmp/.gdmJCO57V</value>
     <value type="QString" >XMODIFIERS=@im=none</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
@@ -114,14 +114,14 @@
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
     <value type="QString" >CVS_RSH=ssh</value>
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-GZmOPVpbcT,guid=29c884209fc8eb552a4c59004f140101</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-3ppVa1v2xP,guid=33e510bbad245880249fbf004f154ea1</value>
     <value type="QString" >DESKTOP_SESSION=default</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
     <value type="QString" >GDMSESSION=default</value>
     <value type="QString" >GDM_XSERVER_LOCATION=local</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=Default</value>
-    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-sIU5s5/socket</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-teqKLs/socket</value>
     <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/doug/.gtkrc-1.2-gnome2</value>
     <value type="QString" >G_BROKEN_FILENAMES=1</value>
     <value type="QString" >HISTSIZE=1000</value>
@@ -139,16 +139,16 @@
     <value type="QString" >QTDIR=/home/doug/qtsdk-2009.02/qt</value>
     <value type="QString" >QTINC=/usr/lib/qt-3.3/include</value>
     <value type="QString" >QTLIB=/usr/lib/qt-3.3/lib</value>
-    <value type="QString" >SESSION_MANAGER=local/scania3.nsqi.bris.ac.uk:/tmp/.ICE-unix/3376</value>
+    <value type="QString" >SESSION_MANAGER=local/scania3.nsqi.bris.ac.uk:/tmp/.ICE-unix/3391</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SHLVL=1</value>
-    <value type="QString" >SSH_AGENT_PID=3415</value>
+    <value type="QString" >SSH_AGENT_PID=3430</value>
     <value type="QString" >SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-LInIKR3376/agent.3376</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-LYZXXj3391/agent.3391</value>
     <value type="QString" >TERM=dumb</value>
     <value type="QString" >USER=doug</value>
     <value type="QString" >USERNAME=doug</value>
-    <value type="QString" >XAUTHORITY=/tmp/.gdm4L347V</value>
+    <value type="QString" >XAUTHORITY=/tmp/.gdmJCO57V</value>
     <value type="QString" >XMODIFIERS=@im=none</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
@@ -165,14 +165,14 @@
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
     <value type="QString" >CVS_RSH=ssh</value>
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-u1q4zbL5KT,guid=203148242af4ef20868d93004f0ac809</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-3ppVa1v2xP,guid=33e510bbad245880249fbf004f154ea1</value>
     <value type="QString" >DESKTOP_SESSION=default</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
     <value type="QString" >GDMSESSION=default</value>
     <value type="QString" >GDM_XSERVER_LOCATION=local</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=Default</value>
-    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-quzri5/socket</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-teqKLs/socket</value>
     <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/doug/.gtkrc-1.2-gnome2</value>
     <value type="QString" >G_BROKEN_FILENAMES=1</value>
     <value type="QString" >HISTSIZE=1000</value>
@@ -190,16 +190,16 @@
     <value type="QString" >QTDIR=/home/doug/qtsdk-2009.02/qt</value>
     <value type="QString" >QTINC=/usr/lib/qt-3.3/include</value>
     <value type="QString" >QTLIB=/usr/lib/qt-3.3/lib</value>
-    <value type="QString" >SESSION_MANAGER=local/scania3.nsqi.bris.ac.uk:/tmp/.ICE-unix/3393</value>
+    <value type="QString" >SESSION_MANAGER=local/scania3.nsqi.bris.ac.uk:/tmp/.ICE-unix/3391</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SHLVL=1</value>
-    <value type="QString" >SSH_AGENT_PID=3432</value>
+    <value type="QString" >SSH_AGENT_PID=3430</value>
     <value type="QString" >SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-DwHpQi3393/agent.3393</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-LYZXXj3391/agent.3391</value>
     <value type="QString" >TERM=dumb</value>
     <value type="QString" >USER=doug</value>
     <value type="QString" >USERNAME=doug</value>
-    <value type="QString" >XAUTHORITY=/tmp/.gdmRNDT7V</value>
+    <value type="QString" >XAUTHORITY=/tmp/.gdmJCO57V</value>
     <value type="QString" >XMODIFIERS=@im=none</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
