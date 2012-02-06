@@ -64,7 +64,7 @@ HistPlot::HistPlot(QWidget *parent):
 
 }
 
-void HistPlot::setxStart(int xStart)
+void HistPlot::setxStart(double xStart)
 {
     //Update the histogram x-minimum
     start = xStart;
@@ -74,7 +74,7 @@ void HistPlot::setxStart(int xStart)
     show();
 }
 
-void HistPlot::setxStop(int xStop)
+void HistPlot::setxStop(double xStop)
 {
     //Update the histogram x-minimum
     finish = xStop;

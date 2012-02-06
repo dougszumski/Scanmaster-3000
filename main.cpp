@@ -118,12 +118,12 @@ MainWindow::MainWindow()
     //Connect the parameters to the histogram plotter
     connect(setHistPara, SIGNAL(intervalCount(int)), histplot, SLOT(setIntervals(int)));
     //Connect the histogram x axis min/max values to the histogram
-    connect (setHistPara, SIGNAL(xMinPosition(int)), histplot, SLOT(setxStart(int)));
-    connect (setHistPara, SIGNAL(xMaxPosition(int)), histplot, SLOT(setxStop(int)));
+    connect (setHistPara, SIGNAL(xMinPosition(double)), histplot, SLOT(setxStart(double)));
+    connect (setHistPara, SIGNAL(xMaxPosition(double)), histplot, SLOT(setxStop(double)));
     //Clear the histogram when the parameters are changed
     connect(setHistPara, SIGNAL(intervalCount(int)), histplot, SLOT(clearPlot()));
-    connect(setHistPara, SIGNAL(xMinPosition(int)), histplot, SLOT(clearPlot()));
-    connect(setHistPara, SIGNAL(xMaxPosition(int)), histplot, SLOT(clearPlot()));
+    connect(setHistPara, SIGNAL(xMinPosition(double)), histplot, SLOT(clearPlot()));
+    connect(setHistPara, SIGNAL(xMaxPosition(double)), histplot, SLOT(clearPlot()));
     //Connect the save file dialog to datplot
     connect(this, SIGNAL(newFilename(QString)), dataplot, SLOT(inputfile(QString)));
 

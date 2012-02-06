@@ -50,7 +50,7 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     connect(histBins, SIGNAL(valueChanged(int)), this, SIGNAL(intervalCount(int)));
 
     QHBoxLayout* hLayoutHistStart = new QHBoxLayout;
-    QSpinBox* histStart= new QSpinBox();
+    QDoubleSpinBox* histStart= new QDoubleSpinBox();
     histStart->setMinimum(-10);
     //TODO: Link this to less than histstop
     histStart->setMaximum(10);
@@ -58,20 +58,19 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     QLabel* histStartLabel = new QLabel(tr("Start position:"));
     hLayoutHistStart->addWidget(histStartLabel);
     hLayoutHistStart->addWidget(histStart);
-    connect(histStart, SIGNAL(valueChanged(int)), this, SIGNAL(xMinPosition(int)));
+    connect(histStart, SIGNAL(valueChanged(double)), this, SIGNAL(xMinPosition(double)));
 
     QHBoxLayout* hLayoutHistStop = new QHBoxLayout;
-    QSpinBox* histStop = new QSpinBox();
+    QDoubleSpinBox* histStop = new QDoubleSpinBox();
     histStop->setValue(DEF_XMAX);
     histStop->setMaximum(10);
     QLabel* histStopLabel = new QLabel(tr("Stop position:"));
     hLayoutHistStop->addWidget(histStopLabel);
     hLayoutHistStop->addWidget(histStop);
-    connect(histStop, SIGNAL(valueChanged(int)), this, SIGNAL(xMaxPosition(int)));
+    connect(histStop, SIGNAL(valueChanged(double)), this, SIGNAL(xMaxPosition(double)));
 
     //Quad channel parameters
     
-    //Set current scaling  TODO -- convert this whole thing to a double so no need for faffing with the slot
     QHBoxLayout* hLayoutCurrentScale = new QHBoxLayout;
     QDoubleSpinBox* currentScale = new QDoubleSpinBox();
     currentScale->setMaximum(1000000000);
@@ -82,7 +81,6 @@ para::para(QWidget* parent, Qt::WindowFlags flags): QDialog(parent, flags)
     hLayoutCurrentScale->addWidget(currentScale);
     connect(currentScale, SIGNAL(valueChanged(double)), this, SIGNAL(scaleFactor(double)));
 
-    //TODO: Get rid of the above slot and hook up the signals!
     QHBoxLayout* hLayoutHSRes = new QHBoxLayout;
     QDoubleSpinBox* HSRes = new QDoubleSpinBox();
     HSRes->setMaximum(1000000000);

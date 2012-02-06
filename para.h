@@ -32,8 +32,8 @@ class para : public QDialog
      ~para();
  signals:
      void intervalCount(int);
-     void xMinPosition(int);
-     void xMaxPosition(int);
+     void xMinPosition(double);
+     void xMaxPosition(double);
      void scaleFactor(double);
      void HSRes(double);
      void LSRes(double);

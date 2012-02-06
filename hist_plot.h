@@ -46,8 +46,8 @@ public slots:
     void updatePlot(QwtArray<double> values);
     void clearPlot(void);
     void setIntervals(int);
-    void setxStart(int);
-    void setxStop(int);
+    void setxStart(double);
+    void setxStop(double);
 private:
     QwtArray<QwtDoubleInterval> intervals;
     QwtArray<double> histdat;
